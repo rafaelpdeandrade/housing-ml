@@ -25,7 +25,7 @@ def clean(df: pd.DataFrame) -> pd.DataFrame:
     to_drop = pd.concat(invalid.values(), axis=1).any(axis=1)
     logger.info("Limpeza: %d -> %d linhas (%d removidas)", len(df), (~to_drop).sum(), to_drop.sum())
 
-    return df.loc[~to_drop].reset_index(drop=True)
+    return df.loc[~to_drop].reset_index(drop=True)  # ~to_drop: retorna as linhas válidas
 
 def load_dataset(path: Path) -> pd.DataFrame:
     if not path.exists:

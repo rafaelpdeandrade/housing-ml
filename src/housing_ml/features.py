@@ -12,7 +12,6 @@ from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
-TARGET = "price"
 
 NUMERIC_FEATURES = [
     "area_m2", "lot_size_m2", "bedrooms", "bathrooms", "floors", "garage_spots",
@@ -21,7 +20,10 @@ NUMERIC_FEATURES = [
 ]  # fmt: skip
 
 CATEGORICAL_FEATURES = ["neighborhood", "property_type", "heating", "condition"] 
+
 FEATURES = NUMERIC_FEATURES + CATEGORICAL_FEATURES
+TARGET = "price"
+
 
 def build_preprocess() -> ColumnTransformer:
     numeric = Pipeline(

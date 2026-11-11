@@ -10,7 +10,7 @@ from pathlib import Path
 # Identificador da requisição atual; "-" quando não há requisição (ex: treino)
 request_id_var: ContextVar[str] = ContextVar("request_id", default="-")
 
-TEXT_FORMAT = "%(asctime)s | %(levelname)-8s | %(name)s | [%(request_id)s] %(message)s"
+TEXT_FORMAT = "%(asctime)s | %(levelname)-8s | %(name)s | %(funcName)s | [%(request_id)s] %(message)s"
 _STANDARD_ATTRS = set(vars(logging.makeLogRecord({}))) | {"message", "asctime", "request_id", "color_message"}
 
 class RequestIdFilter(logging.Filter):
