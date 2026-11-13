@@ -28,7 +28,7 @@ TARGET = "price"
 def build_preprocess() -> ColumnTransformer:
     numeric = Pipeline(
         [
-            ("imputer", SimpleImputer(strategy="median", add_indicator=True)),
+            ("imputer", SimpleImputer(strategy="median", add_indicator=True)),  # add_indicator=True: cria colunas binárias para evidenciar onde havia dados NaN
             ("scaler", StandardScaler())
         ]
     )
@@ -36,7 +36,7 @@ def build_preprocess() -> ColumnTransformer:
     categorical = Pipeline(
         [
             ("imputer", SimpleImputer(strategy="most_frequent")),
-            ("encoder", OneHotEncoder(handle_unknown="ignore"))
+            ("encoder", OneHotEncoder(handle_unknown="ignore"))     # handle_unknow="ignore": não gera um Error quando encontrar 'categorias desconhecidas' em novos dados
         ]
     )
 
@@ -54,6 +54,6 @@ def to_frame(records: list[dict]) -> pd.DataFrame:
     df = pd.DataFrame(records, columns=FEATURES)
     df[NUMERIC_FEATURES] = df[NUMERIC_FEATURES].astype(float)
     cats = df[CATEGORICAL_FEATURES].astype(object)
-    df[CATEGORICAL_FEATURES] = cats.where(cats.notna(), np.nan)
+    df[CATEGORICAL_FEATURES] = cats.where(cats.notna(), np.nan)     # NaN: modelos de ML trabalham com type 'NaN', porém as APIs entragem None
 
     return df

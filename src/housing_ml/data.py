@@ -2,19 +2,20 @@
 Regras de filtragem e validação da qualidade dos dados 
 """
 
-from housing_ml.logging_config import setup_logger
+from housing_ml.logging_config import setup_logging
 from pathlib import Path
 import pandas as pd
 from housing_ml.features import FEATURES, TARGET
+from housing_ml.config import Settings
 
-logger = setup_logger(level="INFO", fmt="text", log_file=Path("../../artifacts/logs/data.log"))
+logger = setup_logging(level="INFO", fmt="text", log_file=Path(Settings.ARTIFACTS_DIR / "Logs" / "data.log"))
 
 def clean(df: pd.DataFrame) -> pd.DataFrame:
     """ Remove linhas sem alvo ou com valores fisicamente impossíveis """
 
     invalid = {
         "price nulo ou <= 0": ~df[TARGET].gt(0),
-        "area_m2 fora de [0, 1000]": ~df["area_m2"].between(10, 1000),
+        "area_m2 fora de [10, 1000]": ~df["area_m2"].between(10, 1000),
         "age_years fora de [0, 200]": ~df["age_years"].between(0, 200)
     }
 

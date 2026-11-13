@@ -2,10 +2,11 @@ import json
 from housing_ml.logging_config import setup_logging
 from dataclasses import dataclass
 from pathlib import Path
+from housing_ml.config import Settings
 
 import joblib
 
-logger = setup_logging(level="INFO", fmt="text", log_file="../../data/logs/registry.log")
+logger = setup_logging(level="INFO", fmt="text", log_file=Path(Settings.ARTIFACTS_DIR / "Logs" / "registry.log"))
 
 MODEL_FILE = "model.joblib"
 METADATA_FILE = "metadata.json"
@@ -15,6 +16,7 @@ METADATA_FILE = "metadata.json"
 class ModelArtifacts:
     model: object
     metadata: dict
+   
 
 def save_artifact(model, metadata: dict, directory: Path) -> None:
     directory.mkdir(parents=True, exist_ok=True)

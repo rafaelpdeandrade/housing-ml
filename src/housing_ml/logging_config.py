@@ -34,6 +34,7 @@ class JsonFormatter(logging.Formatter):
             "message": record.getMessage()
         }
         payload.update({k: v for k, v in record.__dict__.items() if k not in _STANDARD_ATTRS})
+        
         # Se houver erro de exeção, captura o rastreamento completo 
         if record.exc_info:
             payload["exception"] = self.formatException(record.exc_info)
@@ -56,7 +57,7 @@ def setup_logging(level: str = "INFO", fmt: str = "text", log_file: Path | None 
         log_file.parent.mkdir(parents=True, exist_ok=True)
         handlers["file"] = {
             "class": "logging.handlers.RotatingFileHandler",
-            "filename": str(log_file),
+            "filename": str(log_file.name),
             "maxBytes": 5_000_000,
             "backupCount": 3,
             "encoding": "utf-8",

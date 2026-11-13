@@ -8,6 +8,7 @@ class Settings(BaseSettings):
 
     BASE_PATH: Path = Path(__file__).resolve().parent.parent.parent        # Raiz do projeto 'housing-ml'
     DATA_PATH: Path = BASE_PATH / "data" / "raw" / "housing.csv"
+    ARTIFACTS_DIR: Path = BASE_PATH / "artifacts"
 
     TEST_SIZE: float = 0.2
     CV_FOLDS: int = 5

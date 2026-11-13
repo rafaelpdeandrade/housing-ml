@@ -14,4 +14,5 @@ def build_model() -> TransformedTargetRegressor:
             ("regressor", LinearRegression())
         ]
     )
-    return TransformedTargetRegressor(regressor=pipeline, func=np.log1p, inverse_func=np.expm1)
+    return TransformedTargetRegressor(regressor=pipeline, func=np.log1p, inverse_func=np.expm1)     
+            # TransformedTargetRegressor: transforma o Target (de forma logarítimca) antes do treinamento e reverte essa transformação na hora das previsões
